@@ -21,6 +21,7 @@ import {
 import { generateToken, decodedToken } from "../utils/utils.js";
 
 export const registrationUserHandler = asyncHandler(async (req, res) => {
+  console.log(req.body);
   if (await isHaveUser(req.body)) {
     res.status(409);
     throw Error("User already exists");
