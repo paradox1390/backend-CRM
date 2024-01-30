@@ -127,12 +127,13 @@ export const loginUserHandler = asyncHandler(async (req, res) => {
   }
 });
 
-export const getUserHandler = async (req, res) => {
+export const getUserHandler = asyncHandler(async (req, res) => {
   let token;
   if (req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
     const decoded = decodedToken(token);
     const user = await getUserById(decoded.userId);
+    console.log(user);
     if (!user) {
       res.status(401);
       throw new Error("Token failed");
@@ -144,4 +145,4 @@ export const getUserHandler = async (req, res) => {
     res.status(401);
     throw new Error("Not authorized. You do not have token");
   }
-};
+});
