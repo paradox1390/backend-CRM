@@ -117,6 +117,11 @@ export const loginUserHandler = asyncHandler(async (req, res) => {
     },
   });
 
+  if (!user) {
+    res.status(404);
+    throw new Error("email or password are not correct");
+  }
+
   const isValidPassword = await verify(user.password, password);
   if (user && isValidPassword) {
     const token = generateToken(user.id);
